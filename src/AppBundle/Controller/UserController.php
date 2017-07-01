@@ -203,7 +203,7 @@ class UserController extends Controller {
 
         // Definimos la paginación con el objeto knp paginator
         $paginator = $this->get("knp_paginator");
-        $pagination = $paginator->paginate($query, $request->query->getInt("page", 1), 3);
+        $pagination = $paginator->paginate($query, $request->query->getInt("page", 1), 5);
 
         // Creamos la vista para mostrar los usuarios
         return $this->render("AppBundle:User:users.html.twig", array (
@@ -232,7 +232,7 @@ class UserController extends Controller {
 
         // Definimos la paginación con el objeto knp paginator
         $paginator = $this->get("knp_paginator");
-        $pagination = $paginator->paginate($query, $request->query->getInt("page", 1), 3);
+        $pagination = $paginator->paginate($query, $request->query->getInt("page", 1), 5);
 
         // Creamos la vista para mostrar los usuarios
         return $this->render("AppBundle:User:users.html.twig", array (
