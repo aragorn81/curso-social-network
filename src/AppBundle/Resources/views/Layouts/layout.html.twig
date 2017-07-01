@@ -39,6 +39,7 @@
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
+                        {% if  app.user == null %}
                         <li><a href="{{ path("login") }}">
                                 <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
                                 &nbsp; Entrar
@@ -47,6 +48,7 @@
                                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                 &nbsp; Registro
                             </a></li>
+                        {% endif %}
                     </ul> <!-- navbar nav Enlaces izda-->
                     
                     {# Sección de Login  #}

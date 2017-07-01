@@ -21,6 +21,11 @@ class UserController extends Controller {
     // Acción Login
     public function loginAction(Request $request) {
 
+        // Si el usario ya está autenticado, entonces no debemos mostrar esta página
+        if (is_object($this->getUser())) {
+            return $this->redirect("home");
+        }
+
         // Recuperamos el posible error al hacer login y el último usuario al que le ocurrión el error.
         $authenticationUtils = $this->get("security.authentication_utils");
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -35,6 +40,11 @@ class UserController extends Controller {
 
     // Procesa el formulario de registro
     public function registerAction(Request $request) {
+
+        // Si el usario ya está autenticado, entonces no debemos mostrar esta página
+        if (is_object($this->getUser())) {
+            return $this->redirect("home");
+        }
 
         // Crear el formulario en la página de registro
         $user = new User();
