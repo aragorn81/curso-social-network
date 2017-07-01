@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %} SF3 NETWORK {% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset("assets/bootstrap/css/bootstrap.min.css") }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset("assets/css/bootstrap.cosmo.min.css") }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset("assets/css/styles.css") }}" type="text/css">
+    {% endblock %}
+    {% block javascripts %}
+        <script type="text/javascript">
+            var URL = "{{ app.request.getSchemeAndHttpHost() }}" ;
+        </script>
+        <script src="{{ asset("assets/js/libs/jquery.min.js") }}"></script>
+        <script src="{{ asset("assets/bootstrap/js/bootstrap.min.js") }}"></script>
+    {% endblock %}
+</head>
+<body>
+    <div class="wrapper">
+    <header>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Navegación</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{ path("app_homepage") }}">
+                        <span class="glyphicon glyphicon-cloud" aria-hidden="true"></span> &nbsp; NETWORK
+                    </a>
+                </div> {#navbar-header#}
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{ path("login") }}">
+                                <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+                                &nbsp; Entrar
+                            </a></li>
+                        <li><a href="{{ path("register") }}">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                &nbsp; Registro
+                            </a></li>
+                    </ul> <!-- navbar nav Enlaces izda-->
+                    
+                    {# Sección de Login  #}
+                    {% if  app.user != null %}
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    {{ app.user.name }}
+                                    {{ app.user.surname }}
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="">
+                                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> &nbsp;
+                                            Mi Perfil
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">
+                                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> &nbsp;
+                                            Mis datos
+                                        </a>
+                                    </li>
+                                    <li class="divider" role="separator"></li>
+                                    <li>
+                                        <a href="{{ path("logout") }}">
+                                            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> &nbsp;
+                                            Salir
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">
+                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> &nbsp;
+                                            Ayuda
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    {% endif %}
+                </div> <!-- collapse -->
+
+            </div> {#container-fluid#}
+        </nav>
+    </header>
+    <section id="content">
+
+        <div class="container">
+            <div class="col-lg-11">
+                {% for message in app.session.flashBag().get("status") %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="clearfix"></div>
+
+        {% block content %}
+            Content default
+        {% endblock %}
+    </section>
+    <footer class="col-lg-12 main-footer">
+        <hr>
+        <div class="container">
+            <p class="text-muted">Desarrollar una red social con Symfony3 - Eduardo Gómez Moreno</p>
+        </div>
+    </footer>
+
+    </div>
+</body>
+</html>
