@@ -1,5 +1,5 @@
 /**********************************************************************
- * Generales
+ * GENERALES
  **********************************************************************/
 
 /***** Estilos para posicionar el footer en la parte de abajo *********/
@@ -30,10 +30,10 @@ body {
 }
 
 /**********************************************************************
- * header
+ * HEADER
  **********************************************************************/
 .navbar-collapse .avatar {
-    background: #FFFFFF;
+    background-color: #FFFFFF;
     border-radius: 50%;
     width: 30px;
     height: 30px;
@@ -50,7 +50,8 @@ body {
 /**********************************************************************
  * REGISTRO
  **********************************************************************/
-.box-form {
+.box-form,
+.box-default {
     background-color: #ffffff;
     border: 1px solid #cccccc;
     padding: 20px;
@@ -61,4 +62,24 @@ body {
 
 .box-form input {
     margin-bottom: 10px;
+}
+/**********************************************************************
+ * SECCIÓN DE GENTE
+ **********************************************************************/
+.user-item .avatar {
+    background-color: #eeeeee;
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+    overflow: hidden;
+    float: left;
+}
+.user-item .avatar img {
+    height: 100%;
+    text-align: center;
+}
+
+.user-item .user-item-content {
+    padding: 10px;
+    margin-left: 85px;
 }

@@ -148,7 +148,7 @@ class UserController extends Controller {
                     ->setParameter("nick", $form->get("nick")->getData());
                 $user_isset = $query->getResult();
 
-                if (($user->getEmail() == $user_isset[0]->getEmail() && $user->getNick() == $user_isset[0]->getNick() ) || count($user_isset) == 0) {
+                if (count($user_isset) == 0 || ($user->getEmail() == $user_isset[0]->getEmail() && $user->getNick() == $user_isset[0]->getNick() )) {
 
                     $file = $form["image"]->getData();
 
@@ -190,6 +190,53 @@ class UserController extends Controller {
 
         return $this->render("AppBundle:User:edit_user.html.twig", array(
             "form" => $form->createView()
+        ));
+
+    }
+
+    public function usersAction(Request $request) {
+
+        // Recuperamos el listado de usuarios de la base de datos
+        $em = $this->getDoctrine()->getManager();
+        $dql = "SELECT u FROM BackendBundle:User u ORDER BY u.id ASC" ;
+        $query = $em->createQuery($dql);
+
+        // Definimos la paginación con el objeto knp paginator
+        $paginator = $this->get("knp_paginator");
+        $pagination = $paginator->paginate($query, $request->query->getInt("page", 1), 3);
+
+        // Creamos la vista para mostrar los usuarios
+        return $this->render("AppBundle:User:users.html.twig", array (
+            "pagination" => $pagination
+        ));
+
+    }
+
+    public function searchAction(Request $request) {
+
+        // Recuperamos el parámetro get del formulario de búsqueda
+        $search = $request->query->get("search", null);
+
+        // Si el search es vacío nos vamos a home
+        if ($search == null) {
+            return $this->redirect($this->generateUrl("home_publications"));
+        }
+
+        // Recuperamos el listado de usuarios de la base de datos relacionados con el parametro search
+        $em = $this->getDoctrine()->getManager();
+        $dql = "SELECT u FROM BackendBundle:User u"
+                . " WHERE u.name LIKE :search or u.surname LIKE :search "
+                . " OR u.nick LIKE :search "
+                . " ORDER BY u.id ASC" ;
+        $query = $em->createQuery($dql)->setParameter("search", "%$search%" );
+
+        // Definimos la paginación con el objeto knp paginator
+        $paginator = $this->get("knp_paginator");
+        $pagination = $paginator->paginate($query, $request->query->getInt("page", 1), 3);
+
+        // Creamos la vista para mostrar los usuarios
+        return $this->render("AppBundle:User:users.html.twig", array (
+            "pagination" => $pagination
         ));
 
     }

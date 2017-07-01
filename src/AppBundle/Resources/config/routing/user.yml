@@ -20,3 +20,11 @@ user_nick_test:
 user_edit:
     path: /my-data
     defaults: { _controller: AppBundle:User:editUser }
+
+user_list:
+    path: /people
+    defaults: { _controller: AppBundle:User:users }
+
+user_search:
+    path: /search
+    defaults: { _controller: AppBundle:User:search }
