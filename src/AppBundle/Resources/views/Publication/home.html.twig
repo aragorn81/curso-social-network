@@ -1,6 +1,100 @@
 {% extends "AppBundle:Layouts:layout.html.twig" %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/custom/home.js') }}"></script>
+{% endblock %}
+
+
 {% block content %}
-    <h1>Texto de prueba de publication</h1>
+    <div class="container">
+
+
+        <div id="timeline" class="col-lg-7 box-default  pull-left">
+            <h1 class="box-header">Timeline</h1>
+
+            <div class="box-content">
+
+                {% for publication in pagination %}
+                    <div class="col-lg-12 publication-item">
+
+                        <div class="avatar">
+                            {% if publication.user.image == null %}
+                                <img src="{{ asset('assets/images/default.png') }}">
+                            {% else %}
+                                <img src="{{ asset('uploads/users/' ~publication.user.image) }}" alt="Avatar de {{ app.user.name }} {{ app.user.surname }}">
+                            {% endif %}
+                        </div> <!-- avatar -->
+
+                        <div class="publication-item-content">
+                            <p>
+                                <a href="#" class="pub-name-link">
+                                    {{ publication.user.name }} {{ publication.user.surname }}
+                                </a>
+                                -
+                                {{ publication.user.nick }}
+                                -
+                                <span class="pub-date">
+                                    {{ publication.createdAt|long_time }}
+                                </span>
+                            </p>
+                            <p>{{ publication.text }}</p>
+
+                            {% if ((publication.user.id is defined) and (publication.user.id == app.user.id)) %}
+                                <span class="btn-delete-pub glyphicon glyphicon-trash" data-id="{{ publication.id }}" aria-hidden="true">
+                                </span>
+                            {% endif %}
+
+                            {% if (publication.document is defined) and (publication.document != null) %}
+                                <a href="{{ asset('uploads/publications/documents/' ~publication.document) }}" class="btn-doc glyphicon glyphicon-save" aria-hidden="true" target="_blank"></a>
+                            {% endif %}
+
+                            {% if (publication.image is defined) and (publication.image != null) %}
+                                <span class="btn-img glyphicon glyphicon-picture" aria-hidden="true">
+                                    <div class="clearfix"></div>
+                                    <div class="pub-image">
+                                        <img src="{{ asset('uploads/publications/images/' ~publication.image) }}" alt="">
+                                    </div>
+                                </span>
+                            {% endif %}
+
+                        </div> <!-- publication-item-content -->
+                        <hr>
+                        <div class="clearfix"></div>
+                    </div> <!-- publication-item -->
+                {% endfor %}
+
+                <div class="navigation">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+
+            </div> <!-- box-content -->
+        </div> <!-- timeline -->
+
+        <div id="user-card" class="col-lg-4 box-default pull-left">
+            <div class="avatar">
+                {% if app.user.image == null %}
+                    <img src="{{ asset('assets/images/default.png') }}">
+                {% else %}
+                    <img src="{{ asset('uploads/users/' ~app.user.image) }}" alt="Avatar de {{ app.user.name }} {{ app.user.surname }}">
+                {% endif %}
+            </div> <!-- avatar -->
+
+            <div class="name-surname">
+                <a href="#">{{ app.user.name }} {{ app.user.surname }} </a>
+                <div class="clearfix"></div>
+                <span class="nickname">{{ app.user.nick }}</span>
+            </div> <!-- name-surname -->
+
+            <div class="clearfix"></div>
+        </div> <!-- user-card -->
+
+        <div id="new-publication" class="col-lg-4 box-default pull-left">
+            <h1 class="box-header">Crer publicación</h1>
+
+            {{ form_start(form, {action: "", "method": "POST"}) }}
+            {{ form_end(form) }}
+        </div>
+    </div> <!-- container -->
 
 {% endblock %}

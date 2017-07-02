@@ -215,7 +215,7 @@ class UserController extends Controller {
     public function searchAction(Request $request) {
 
         // Recuperamos el parámetro get del formulario de búsqueda
-        $search = $request->query->get("search", null);
+        $search = trim($request->query->get("search", null));
 
         // Si el search es vacío nos vamos a home
         if ($search == null) {

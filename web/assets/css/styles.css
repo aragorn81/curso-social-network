@@ -3,25 +3,25 @@
  **********************************************************************/
 
 /***** Estilos para posicionar el footer en la parte de abajo *********/
-html, body {
+/*html, body {
     height: 100%;
-}
-.wrapper {
+}*/
+/*.wrapper {
     min-height: 100%;
     position: relative;
-}
+}*/
 
 footer.main-footer {
-    height: 80px;
+    /*height: 80px;
     width: 100%;
-    margin: 0 auto;
+    margin: 0 auto;*/
     /* Para evitar la barra de Symfony */
     /*margin-bottom: 36px;*/
     /***********************************/
-    text-align: center;
+    /*text-align: center;
     position: absolute;
     left: 0;
-    bottom: 0;
+    bottom: 0;*/
 }
 /***********************************************************************/
 
@@ -66,7 +66,8 @@ body {
 /**********************************************************************
  * SECCIÓN DE GENTE
  **********************************************************************/
-.user-item .avatar {
+.user-item .avatar,
+.publication-item .avatar {
     background-color: #eeeeee;
     border-radius: 50%;
     width: 75px;
@@ -74,12 +75,103 @@ body {
     overflow: hidden;
     float: left;
 }
-.user-item .avatar img {
+.user-item .avatar img,
+.publication-item .avatar img {
     height: 100%;
     text-align: center;
 }
 
-.user-item .user-item-content {
+.user-item .user-item-content,
+.publication-item .publication-item-content{
     padding: 10px;
     margin-left: 85px;
+}
+/**********************************************************************
+ * SECCIÓN DE HOME (PUBLICACIONES)
+ **********************************************************************/
+#timeline {
+    margin-right: 20px;
+    min-height: 750px;
+    padding-bottom: 20px;
+}
+
+.box-header {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    padding-top:0px;
+    font-size: 25px;
+}
+
+
+#user-card {
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+#user-card .avatar {
+    background-color: #eeeeee;
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+    overflow: hidden;
+    float: left;
+}
+#user-card .avatar img {
+    height: 100%;
+    text-align: center;
+}
+
+#user-card .avatar img.default {
+    opacity: 0.5;
+}
+
+#user-card .name-surname {
+    float: left;
+    font-size: 20px;
+    padding: 10px;
+}
+
+#user-card .name-surname a {
+    color: #000000;
+}
+
+#user-card .nickname {
+    opacity: .7;
+}
+
+
+#new-publication input,
+#new-publication textarea {
+    margin-bottom: 10px;
+}
+
+.pub-name-link {
+    font-weight: bold;
+    color: #000000;
+}
+
+.pub-date {
+    color: gray;
+}
+
+.pub-image {
+    display: none;
+    -webkit-transition: all 300ms;
+    -moz-transition: all 300ms;
+    -ms-transition: all 300ms;
+    -o-transition: all 300ms;
+    transition: all 300ms;
+}
+
+.pub-image img {
+    width: 100%;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+}
+
+.publication-item .glyphicon {
+    margin-right: 7px;
+    cursor: pointer;
+    color: #444 !important;
 }
